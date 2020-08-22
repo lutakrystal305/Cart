@@ -10,6 +10,7 @@ import {
   NavbarText
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { CartContext } from '../context/Cart';
 
 const Example = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,10 +25,23 @@ const Example = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link to="/">Home</Link>
+                <NavLink>
+                    <Link to="/">Home</Link>
+                </NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/product">Product</Link>
+                <NavLink>
+                    <Link to="/product">Products</Link>
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink>
+                    <CartContext.Consumer>
+                        {({ cartItems }) => (
+                            <Link to="/cart">Cart ({cartItems.length}) </Link>
+                        )}
+                    </CartContext.Consumer>
+                </NavLink>
             </NavItem>
           </Nav>
           <NavbarText>Luta Krystal</NavbarText>
